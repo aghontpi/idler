@@ -97,10 +97,10 @@ I want this feature on all platforms.. plus running natively has its benefits. (
   - this is similar to `node modules` in `npm`
 - some examples:
   - In my usecase for `macos`,`windows` and `linux`. **I had to open a new window** to show the reminder with a `gif`.. this is not supported in `Flutter` yet. [This feature request is still open since 2019](https://github.com/flutter/flutter/issues/30701).
-  - For `Mobiles`.. I decided to **contain the `Flutter` UI in a popup window(image above)**.. this is also not supported in `Flutter` yet.. I spend _COUPLE OF HOURS_ tinkering with different API's. In the end, I achieved the result by implementing it on the `Native` side.
-  - & many more... ~sigh
+  - For `Mobiles`.. I decided to **contain the `Flutter` UI in a popup window(image above)**.. this is also not supported in `Flutter` yet.. I spent _COUPLE OF HOURS_ tinkering with different API's but, In the end, I achieved the result by implementing on the `Native` side.
+  - And many more... ~sigh 😿
 
-Flutter supports 70-75% of the features to build a production ready app(in a single codebase `Dart`)... but if the feature we want is in the unsupported 25-30% then we have to implment it :) (mutile codebases bason on target platform).
+Flutter supports 70-75% of the features to build a production ready app(in a single codebase `Dart`)... but if the feature we want is in the unsupported 25-30% then we have to implement it :) (mutiple codebases based on the target platforms).
 
 ## How did I spend my time coding this?
 
