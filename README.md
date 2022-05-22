@@ -102,7 +102,7 @@ I want this feature on all platforms.. plus running natively has its benefits. (
 
 Flutter supports 70-75% of the features to build a production ready app(in a single codebase `Dart`)... but if the feature we want is in the unsupported 25-30% then we have to implement it :) (mutiple codebases based on the target platforms).
 
-## How did I spend my time coding this?
+## Where & how did I spend my time coding this?
 
 - Dart & Flutter = 40%
 - Researching & Writing native code to support a specific usecase = 40%
