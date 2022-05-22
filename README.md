@@ -1,6 +1,16 @@
-# idle_notifier
+# idler
 
 > Flutter 3.0 Prototype "to remind you to drink water, take a break,...etc"
+
+<p>
+  <a href="https://github.com/aghontpi/idler/releases"><img src="https://img.shields.io/github/v/release/aghontpi/idler?include_prereleases&style=flat-square&label=github-release" alt="release"></a>
+  <a href="https://github.com/aghontpi/idler/blob/master/LICENSE"><img src="https://img.shields.io/github/license/aghontpi/idler?style=flat-square" alt="license"></a>
+</p>
+
+[license-badge]: https://img.shields.io/github/license/aghontpi/idler?style=flat-square
+[license file]: https://github.com/aghontpi/idler/blob/master/LICENSE
+[badge]: https://img.shields.io/github/v/release/aghontpi/idler?include_prereleases&style=flat-square&label=github-release
+[release link]: https://github.com/aghontpi/idler/releases
 
 ## Reason behind to create this project
 
