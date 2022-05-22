@@ -16,13 +16,15 @@
 
 To test Flutter 3.0 release.
 
-## Initially built to support
+## Platform support
 
-- `macOS`
-- `android`
-- `iOS`
-- `window (pending)`
-- `linux (pending)`
+| Platform  | Support |
+| :-------- | :------ |
+| `MacOS`   | yes     |
+| `android` | yes     |
+| `iOS`     | yes     |
+| `windows` | pending |
+| `linux`   | pending |
 
 ## Choosing a usecase that would be useful for every platform
 
