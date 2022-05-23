@@ -22,7 +22,7 @@ class IdleNotifierFormState extends State<IdleNotifierForm> {
   static const forAndroidPlatform =
       MethodChannel("android-communication-channel");
   String msg = "";
-  int interval = Platform.isAndroid ? 60 : 1;
+  int interval = Platform.isAndroid|| Platform.isIOS ? 60 : 1;
 
   static const androidSpecifics = AndroidNotificationDetails(
       "99", "Notification Remainder Channel",
@@ -32,7 +32,7 @@ class IdleNotifierFormState extends State<IdleNotifierForm> {
       icon: "notification_icon",
       ticker: "ticker");
 
-  static const platformDetails =  NotificationDetails(android: androidSpecifics);
+  static const platformDetails = NotificationDetails(android: androidSpecifics);
 
   onSubmitPressed() async {
     log("$msg $interval");
@@ -45,11 +45,11 @@ class IdleNotifierFormState extends State<IdleNotifierForm> {
         log("invoking macos native code");
         forMacOsPlatform
             .invokeMethod("runWithArgs", {"msg": msg, "interval": interval});
-      } else if (Platform.isAndroid) {
-        log("android notification set");
-        await flutterLocalNotificationsPlugin.periodicallyShow(88,'♡ idle notifier ♡', msg, RepeatInterval.hourly, platformDetails);
+      } else if (Platform.isAndroid || Platform.isIOS) {
+        log("android/iOS notification set");
+        await flutterLocalNotificationsPlugin.periodicallyShow(88,
+            '♡ idle notifier ♡', msg, RepeatInterval.hourly, platformDetails);
       }
-
     }
   }
 
@@ -61,12 +61,18 @@ class IdleNotifierFormState extends State<IdleNotifierForm> {
       } catch (e) {
         log("unable to call macos specific native function");
       }
-    } else if (Platform.isAndroid) {
-      log("android.. launch notification here");
-      if (_formKey.currentState!.validate()){
+    } else if (Platform.isAndroid || Platform.isIOS)  {
+      log("android..iOS launch notification here");
+      if (_formKey.currentState!.validate()) {
         _formKey.currentState!.save();
         log("launching notifications");
-        await flutterLocalNotificationsPlugin.show(88,'♡ idle notifier ♡', msg, platformDetails, payload: 'dummy');
+        await flutterLocalNotificationsPlugin
+            .resolvePlatformSpecificImplementation<
+                IOSFlutterLocalNotificationsPlugin>()
+            ?.requestPermissions(alert: true, badge: true, sound: true);
+        await flutterLocalNotificationsPlugin.show(
+            88, '♡ idler ♡', msg, platformDetails,
+            payload: 'dummy');
       }
     }
   }
@@ -103,21 +109,29 @@ class IdleNotifierFormState extends State<IdleNotifierForm> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Center(child: Text(Platform.isAndroid? "android & IOS flutter limitations, \nCan only be 60 min" :'Notify every $interval minutes',softWrap: true, textAlign: TextAlign.center))
+                    Center(
+                        child: Text(
+                            Platform.isAndroid || Platform.isIOS
+                                ? "android & IOS flutter limitations, \nCan only be 60 min"
+                                : 'Notify every $interval minutes',
+                            softWrap: true,
+                            textAlign: TextAlign.center))
                   ],
                 ),
                 const SizedBox(height: 16),
                 Slider(
-                    value: Platform.isAndroid ? 60: interval.toDouble(),
+                    value: Platform.isAndroid ? 60 : interval.toDouble(),
                     max: 60,
                     divisions: 60,
                     label: interval.toString(),
-                    onChanged: Platform.isAndroid ? null : (double value) {
-                      setState(() {
-                        print("change -> $value");
-                        interval = value.toInt();
-                      });
-                    }),
+                    onChanged: Platform.isAndroid || Platform.isIOS
+                        ? null
+                        : (double value) {
+                            setState(() {
+                              print("change -> $value");
+                              interval = value.toInt();
+                            });
+                          }),
                 const SizedBox(height: 16),
                 Row(
                     mainAxisAlignment: MainAxisAlignment.center,

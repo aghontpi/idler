@@ -7,7 +7,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 final AndroidInitializationSettings androidInitializationSettings = AndroidInitializationSettings("notification_icon");
-final IOSInitializationSettings initializationSettingsIOS = IOSInitializationSettings(onDidReceiveLocalNotification: (id, title, body, payload) => {});
+final IOSInitializationSettings initializationSettingsIOS = IOSInitializationSettings(requestAlertPermission: false,requestBadgePermission: false, requestSoundPermission: false,onDidReceiveLocalNotification: (id, title, body, payload) => {});
 final InitializationSettings initializationSettings = InitializationSettings(android: androidInitializationSettings, iOS: initializationSettingsIOS);
 
 void main() {
