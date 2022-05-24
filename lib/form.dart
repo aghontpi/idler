@@ -22,7 +22,7 @@ class IdleNotifierFormState extends State<IdleNotifierForm> {
   static const forAndroidPlatform =
       MethodChannel("android-communication-channel");
   String msg = "";
-  int interval = Platform.isAndroid|| Platform.isIOS ? 60 : 1;
+  int interval = Platform.isAndroid || Platform.isIOS ? 60 : 1;
 
   static const androidSpecifics = AndroidNotificationDetails(
       "99", "Notification Remainder Channel",
@@ -43,8 +43,8 @@ class IdleNotifierFormState extends State<IdleNotifierForm> {
       );
       if (Platform.isMacOS) {
         log("invoking macos native code");
-        forMacOsPlatform
-            .invokeMethod("runWithArgs", {"msg": msg, "interval": interval});
+        forMacOsPlatform.invokeMethod(
+            "runWithArgs", {"msg": msg, "interval": interval.toString()});
       } else if (Platform.isAndroid || Platform.isIOS) {
         log("android/iOS notification set");
         await flutterLocalNotificationsPlugin.periodicallyShow(88,
@@ -61,7 +61,7 @@ class IdleNotifierFormState extends State<IdleNotifierForm> {
       } catch (e) {
         log("unable to call macos specific native function");
       }
-    } else if (Platform.isAndroid || Platform.isIOS)  {
+    } else if (Platform.isAndroid || Platform.isIOS) {
       log("android..iOS launch notification here");
       if (_formKey.currentState!.validate()) {
         _formKey.currentState!.save();
@@ -70,9 +70,8 @@ class IdleNotifierFormState extends State<IdleNotifierForm> {
             .resolvePlatformSpecificImplementation<
                 IOSFlutterLocalNotificationsPlugin>()
             ?.requestPermissions(alert: true, badge: true, sound: true);
-        await flutterLocalNotificationsPlugin.show(
-            88, '♡ idler ♡', msg, platformDetails,
-            payload: 'dummy');
+        await flutterLocalNotificationsPlugin
+            .show(88, '♡ idler ♡', msg, platformDetails, payload: 'dummy');
       }
     }
   }
